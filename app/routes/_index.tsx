@@ -1,4 +1,17 @@
-import type { MetaFunction } from "@remix-run/node";
+import { json, type MetaFunction } from "@remix-run/node";
+
+export const loader = async () => {
+  const response = await fetch("http://localhost:3001/test")
+
+  if (response.ok) {
+    const data = await response.json();
+    return json(data)
+  }
+
+  return json({
+    status: "NOT Found"
+  })
+}
 
 export const meta: MetaFunction = () => {
   return [
